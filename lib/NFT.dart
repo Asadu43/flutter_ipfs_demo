@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ipfs_demo/GetApiResponse.dart';
-import 'package:flutter_ipfs_demo/Value.dart';
+import 'package:flutter_ipfs_demo/api_response/GetApiResponse.dart';
 
 class NFT extends StatefulWidget {
   const NFT({Key? key}) : super(key: key);
@@ -19,17 +18,7 @@ class _NFTState extends State<NFT> {
     Dio dio = Dio();
     dio.options.headers["Authorization"] = "Bearer $token";
     final Response response = await dio.get(baseUrl);
-    print(response.data);
-
-    // if (response.statusCode == 200) {
-    print(response.data);
     return GetApiResponse.fromJson(response.data);
-    // }
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
@@ -43,8 +32,6 @@ class _NFTState extends State<NFT> {
         builder: (context, snapshot) {
           if (snapshot.data?.value != null) {
             for (var i = 0; i < snapshot.data!.value!.length; i++) {
-              List<Value> data = snapshot.data!.value!;
-              // for (var j = 0; j < data[i].files!.length; j++) {
               return ListView.builder(
                 itemCount: snapshot.data!.value!.length,
                 itemBuilder: (context, index) {
